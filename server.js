@@ -32,6 +32,7 @@ app.get("/file/*?", function (req, res, next) {
 });
 
 var main = require("./myApp.js");
+const helmet = require("helmet");
 app.get("/app-info", function (req, res) {
   // list middlewares mounted on the '/' camper's app
   var appMainRouteStack = main._router.stack
@@ -64,6 +65,7 @@ app.get("/package.json", function (req, res, next) {
 app.use(function (req, res, next) {
   res.status(404).type("txt").send("Not Found");
 });
+
 
 module.exports = app;
 
