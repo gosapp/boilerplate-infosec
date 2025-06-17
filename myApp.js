@@ -12,9 +12,13 @@ app.use(helmet.hsts({
   maxAge: ninetyDaysInSeconds,
   force: true
 })); // Enable HTTP Strict Transport Security (HSTS) with a max age of 90 days
-
-
-
+app.use(helmet.dnsPrefetchControl({ allow: false })); // Disable DNS prefetching to prevent privacy intrusion
+app.use(helmet.noCache()); // Disable caching to prevent sensitive data from being stored in the browser cache
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", 'trusted-cdn.com']
+}})); // Set Content Security Policy (CSP) to allow scripts only from the same origin and a trusted CDN
 
 
 
